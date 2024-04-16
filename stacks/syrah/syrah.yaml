@@ -1095,6 +1095,20 @@ mpi_blas_python_packages_gcc_stable:
             none: ~cuda
         dependencies:
           - fftw~mpi+openmp
+    - lammps@20240207:
+        variants:
+          common: |
+            build_type=Release +asphere +atc +body +class2 +colloid +compress
+            +coreshell +dipole +diffraction +extra-dump +granular +h5md +kspace
+            +latboltz +lib +manybody +ml-pace +mc +misc +molecule +mpi
+            +netcdf +peri ~poems +python +qeq +replica +rigid +shock +ml-snap
+            +srd +voronoi +plumed +meam
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch>
+            none: ~cuda
+        dependencies:
+          - netcdf-c+mpi
+          - fftw+mpi+openmp
     - lammps@20220107:
         variants:
           common: |
