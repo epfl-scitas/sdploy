@@ -7,4 +7,6 @@ platform:
     target: skylake_avx512
     lmod_root: kintoun
     core_per_socket: 20
-    cuda_arch: 70
+    cuda_arch: 70 # For v100
+    #cuda_arch: 75 # For T4
+    #cuda_arch: 80 # For a100
