@@ -1,17 +1,10 @@
 platform:
   filters:
-    gpu: none
-    mpi: ethernet
-    cloud: ecocloud
+    gpu: nvidia
+    mpi: none
+    cloud: gcp
   tokens:
-    core_compiler: gcc@8.5.0 arch=linux-rhel8-x86_64_v2
-    os: rhel8
-    lmod_arch: linux-rhel8-x86_64
-    jdk_version: 1.8.0_332
-    slurm_version: 23-02-6
-    openssl_version: 1.1.1k
-    rdma_core_version: 35.0
-    target: icelake
+    target: skylake_avx512
     lmod_root: kintoun
-    core_per_socket: 18
-    pmix_version: 4.2.2
+    core_per_socket: 20
+    cuda_arch: 70
