@@ -43,11 +43,11 @@ spack_release: v0.18.1
 stack_release: syrah
 
 environments: # platforms
-#  - jed
-#  - helvetios
-#  - izar
-  - kintoun
-
+  #  - jed
+  #  - helvetios
+  #  - izar
+  - kintoun-t4
+  - kintoun-a100
 # The mirrors paths are common to all stacks.
 # They are created under `work_directory`.
 mirrors:
@@ -77,11 +77,11 @@ modules:
     lmod: share/spack/lmod
     tcl: share/spack/modules
   suffixes:
-    '+mpi': 'mpi'
-    '+openmp': 'openmp'
-    'threads=openmp': 'openmp'
-    '+libx264': 'h264'
-    '+debug': 'dbg'
+    "+mpi": "mpi"
+    "+openmp": "openmp"
+    "threads=openmp": "openmp"
+    "+libx264": "h264"
+    "+debug": "dbg"
 
 concretizer:
   targets:

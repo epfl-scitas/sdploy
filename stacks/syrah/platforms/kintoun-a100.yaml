@@ -1,0 +1,10 @@
+platform:
+  filters:
+    gpu: nvidia
+    mpi: none
+    cloud: gcp
+  tokens:
+    target: skylake_avx512
+    lmod_root: kintoun-a100
+    core_per_socket: 20
+    cuda_arch: 80 # For a100
