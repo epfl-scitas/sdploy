@@ -5,6 +5,6 @@ platform:
     cloud: gcp
   tokens:
     target: skylake_avx512
-    lmod_root: kintoun-t4
-    core_per_socket: 20
+    lmod_root: kintoun_t4
+    core_per_socket: 36
     cuda_arch: 75 # For T4

@@ -13,7 +13,7 @@ set -u
 # CONFIGURATION
 # Variables needed to run this script
 export STACK=syrah
-export ENVIRONMENT=kintoun-a100
+export ENVIRONMENT=kintoun_a100
 export IN_PR=0
 
 # Variables read from commons.yaml using cat, grep and cut.
