@@ -583,7 +583,8 @@ serial_packages_python_blas_gcc_stable:
             nvidia: +cuda cuda_arch=<cuda_arch>
             none: ~cuda
     - py-cryolobm
-    - py-pymol
+    - py-pymol ^netcdf-cxx4 ^netcdf-c ~mpi ^hdf5 ~mpi
+    
 
 serial_packages_python_blas_intel_stable:
   metadata: { section: packages }
@@ -805,6 +806,115 @@ external_packages:
 #          permissions:
 #            read: group
 #            group: crystal-soft
+
+
+nompi_blas_python_packages_gcc_stable:
+  metadata: { section: packages }
+  pe: [gcc_stable]
+  dependencies: [blas, python3]
+  packages:
+    - adios2:
+        default: { variants: +hdf5 ~mpi +python }
+    - opencv +vtk +python3:
+        variants:
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch>
+            none: ~cuda
+        dependencies:
+          - netcdf-c ~mpi
+          - boost~mpi
+    - vtk:
+        default:
+          variants: +ffmpeg +python +xdmf ~mpi ~qt +ipo +opengl2
+          gpu:
+            nvidia: ~osmesa
+            none: +osmesa
+        dependencies:
+          - netcdf-c ~mpi
+          - boost~mpi
+
+nompi_blas_parallel_python_gpu_packages_gcc_stable:
+  metadata: { section: packages }
+  pe: [gcc_stable]
+  filters: ['gpu']
+  dependencies: [blas_parallel, python3, gpu]
+  packages:
+    - eman2 +cuda ~mpi:
+        dependencies:
+          - py-tensorflow +nccl@2.10.1
+          - bazel
+          - openjdk@11
+          - hdf5 ~mpi
+          - cmake +ownlibs
+    - py-keras:
+        dependencies:
+          - py-tensorflow +nccl@2.10.1
+          - bazel
+          - openjdk@11
+          - hdf5 ~mpi
+          - cmake +ownlibs
+    - py-tensorflow:
+        default:
+          version: 2.10.1
+          variants:
+            common: ~mpi
+            gpu:
+              nvidia: +cuda cuda_arch=<cuda_arch> +nccl
+              none: ~cuda ~nccl ~rocm
+            networks:
+              infiniband: +verbs
+              infiniband_gdrcopy: +verbs
+              ethernet_roce: ~verbs
+              ethernet: ~verbs
+        variants:
+          common: ~mpi
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch> +nccl
+            none: ~cuda ~nccl ~rocm
+        dependencies:
+          - bazel ^openjdk@11
+          - hdf5 ~mpi
+          - cmake +ownlibs
+    - py-torch@2.0.1:
+        variants:
+          common: ~mpi
+          gpu:
+            #nvidia: +cuda cuda_arch=<cuda_arch> +magma +cudnn +nccl
+            nvidia: +cuda cuda_arch=<cuda_arch> ~magma +cudnn +nccl
+            rocm: +magma +rocm
+        default:
+          version: 2.0.1
+          variants:
+            common: ~mpi
+            gpu:
+              #nvidia: +cuda cuda_arch=<cuda_arch> +magma +cudnn +nccl
+              nvidia: +cuda cuda_arch=<cuda_arch> ~magma +cudnn +nccl
+              rocm: +magma +rocm
+        dependencies:
+          common:
+            - cmake +ownlibs
+          gpu:
+            #nvidia: [magma +cuda cuda_arch=<cuda_arch>]
+            nvidia: []
+            none: []
+            rocm: [magma +rocm amdgpuarch=<amd_arch>]
+    - py-torchvision@0.15.2:
+        dependencies:
+          common:
+            - cmake +ownlibs
+          gpu:
+            nvidia:
+              - py-torch ~mpi +cuda cuda_arch=<cuda_arch> ~magma
+            none: [py-torch ~mpi ~cuda]
+    - py-topaz:
+        variants:
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch>
+            none: ~cuda
+        dependencies:
+          - cmake +ownlibs
+          - py-torch ~mpi +cuda cuda_arch=<cuda_arch>
+
 
 # MPI --------------------------------------------------------------------------
 #
