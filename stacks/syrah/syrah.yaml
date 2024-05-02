@@ -1361,6 +1361,14 @@ mpi_blas_python_packages_intel_stable:
           gpu:
             nvidia: [suite-sparse +cuda]
             none: []
+    - petsc:
+        variants: +int64
+        dependencies:
+          common:
+            - hdf5 ~ipo +mpi +szip +hl +fortran +cxx
+          gpu:
+            nvidia: [suite-sparse +cuda]
+            none: []
     - slepc:
         default: { variants: +arpack }
         dependencies:
