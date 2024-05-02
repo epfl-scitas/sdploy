@@ -1154,7 +1154,6 @@ mpi_blas_python_packages_gcc_stable:
 mpi_blas_python_packages_petsc_gcc_stable:
   metadata: { section: packages }
   pe: [gcc_stable]
-  filters: ['gpu'] # This filter is only for backward compatibility
   dependencies: [mpi, blas, python3, gpu]
   packages:
     - petsc:
@@ -1164,6 +1163,15 @@ mpi_blas_python_packages_petsc_gcc_stable:
             gpu:
               nvidia: +cuda cuda_arch=<cuda_arch>
               none: ~cuda
+        variants: ~int64
+        dependencies:
+          common:
+            - hdf5 +ipo +mpi
+          gpu:
+            nvidia: [suite-sparse +cuda]
+            none: []
+    - petsc:
+        variants: +int64
         dependencies:
           common:
             - hdf5 +ipo +mpi
