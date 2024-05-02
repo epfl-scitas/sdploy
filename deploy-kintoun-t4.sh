@@ -151,7 +151,7 @@ echo '> add_mirror.sh'
 echo
 
 echo "skip create mirror"
-# ${JENKINS}/add_mirror.sh 2>&1 | tee ${LOGS}/08_add_mirror.${execution_timestamp}.log
+${JENKINS}/add_mirror.sh 2>&1 | tee ${LOGS}/08_add_mirror.${execution_timestamp}.log
 
 echo '  _________________________________________   ________ '
 echo ' /   _____/\__    ___/\_   _____/\______   \ /   __   \'
