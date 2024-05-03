@@ -342,6 +342,16 @@ serial_packages_gcc_stable:
           - spec: slurm@<slurm_version> ~mariadb
             prefix: /usr
     - sox
+
+# GCC ONLY GPU -----------------------------------------------------------------
+#
+#
+# ------------------------------------------------------------------------------
+serial_packages_gpu_gcc_stable:
+  metadata: { section: packages }
+  pe: [gcc_stable]
+  dependencies: [gpu]
+  packages:
   # This package contains a deprecated variant: `cm`
     - ucx:
         default:
@@ -356,6 +366,18 @@ serial_packages_gcc_stable:
             gpu:
               nvidia: +gdrcopy +cuda cuda_arch=<cuda_arch>
               none: ~gdrcopy +cm
+        variants:
+          common: +parameter_checking +thread_multiple +cma
+          mpi:
+            infiniband: +rdmacm +rc +dc +ud +verbs +mlx5_dv
+            infiniband_gdrcopy: +rdmacm +rc +dc +ud +verbs +mlx5_dv
+            ethernet_roce: +rdmacm +rc +dc +ud +verbs +mlx5_dv
+            ethernet: ~rdmacm ~rc ~dc ~ud ~verbs ~mlx5_dv
+            none: ~rdmacm ~rc ~dc ~ud ~verbs ~mlx5_dv
+          gpu:
+            nvidia: +gdrcopy +cuda cuda_arch=<cuda_arch>
+            none: ~gdrcopy +cm
+
 
 # INTEL ONLY ---------------------------------------------------------------------
 #
@@ -645,11 +667,6 @@ serial_packages_python_gcc_stable:
         default: {variants: +external-lapack}
     - gatk
     - spades
-    - xgboost:
-        variants:
-          gpu:
-            nvidia: +cuda cuda_arch=<cuda_arch>
-            none: ~cuda
 
 # PYTHON + GPU (GCC ONLY) ------------------------------------------------------
 #
@@ -674,6 +691,11 @@ serial_packages_python_gpu_gcc_stable:
           gpu:
             nvidia: [suite-sparse +cuda]
             none: [suite-sparse ~cuda]
+    - xgboost:
+        variants:
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch>
+            none: ~cuda
 
 # EXTERNAL ---------------------------------------------------------------------
 #
@@ -811,18 +833,10 @@ external_packages:
 nompi_blas_python_packages_gcc_stable:
   metadata: { section: packages }
   pe: [gcc_stable]
-  dependencies: [blas, python3]
+  dependencies: [blas_parallel, python3]
   packages:
     - adios2:
         default: { variants: +hdf5 ~mpi +python }
-    - opencv +vtk +python3:
-        variants:
-          gpu:
-            nvidia: +cuda cuda_arch=<cuda_arch>
-            none: ~cuda
-        dependencies:
-          - netcdf-c ~mpi
-          - boost~mpi
     - vtk:
         default:
           variants: +ffmpeg +python +xdmf ~mpi ~qt +ipo +opengl2
@@ -846,6 +860,14 @@ nompi_blas_parallel_python_gpu_packages_gcc_stable:
           - openjdk@11
           - hdf5 ~mpi
           - cmake +ownlibs
+    - opencv +vtk +python3:
+        variants:
+          gpu:
+            nvidia: +cuda cuda_arch=<cuda_arch>
+            none: ~cuda
+        dependencies:
+          - netcdf-c ~mpi
+          - boost~mpi
     - py-keras:
         dependencies:
           - py-tensorflow +nccl@2.10.1
