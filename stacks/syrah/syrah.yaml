@@ -762,6 +762,9 @@ external_packages:
             prefix: <external_prefix>/MATLAB/R2018a
           - spec: matlab@R2019b %<core_compiler>
             prefix: <external_prefix>/MATLAB/R2019b
+          - spec: matlab@R2024a %<core_compiler>
+            prefix: <external_prefix>/MATLAB/R2024a
+    - matlab@R2024a
     - maple:
         default:
           buildable: false
