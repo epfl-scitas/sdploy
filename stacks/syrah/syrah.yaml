@@ -83,6 +83,7 @@ core_packages:
     - emacs +tls
     - fastqc
     - fio
+    - ghostscript
     - git
     - git-lfs
 #    - i7z
