@@ -1212,6 +1212,16 @@ mpi_blas_python_packages_no_gpu_gcc_stable:
             - superlu-dist +ipo
             - hdf5 +ipo +mpi
             - cmake +ownlibs
+    - py-fenics-dolfinx:
+        dependencies:
+          common:
+            - fenics-dolfinx +slepc
+            - boost +mpi
+            - petsc  ~int64 +double +hdf5 +metis +mpi +superlu-dist +hypre +suite-sparse
+            - parmetis +ipo
+            - superlu-dist +ipo
+            - hdf5 +ipo +mpi
+            - cmake +ownlibs
 
 mpi_blas_parallel_python_gpu_packages_gcc_stable:
   metadata: { section: packages }
