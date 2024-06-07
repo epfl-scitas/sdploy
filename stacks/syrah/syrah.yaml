@@ -536,6 +536,7 @@ serial_packages_python_blas:
     #- bcl2fastq2
     - py-biopython
     - py-macs2
+    - py-macs3
     - py-pybigwig
 
 serial_packages_python_blas_gcc_stable:
