@@ -1025,6 +1025,7 @@ mpi_blas_python_packages:
   packages:
     - boost +mpi
     - cgal ^boost+mpi
+    - elpa +mpi+openmp
     - iq-tree@1.6.12+mpi ^boost+mpi
     - neuron +mpi +python
     - plumed:
