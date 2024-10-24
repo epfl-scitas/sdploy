@@ -35,6 +35,7 @@ modules:
           +ilp64: f64
           +int64: int64
           version_suffix=jl: julia
+          ^petsc +complex: complex
       whitelist:
         - cmake +ncurses%{{tokens['core_compiler']}}
         - llvm%{{tokens['core_compiler']}}
@@ -177,6 +178,9 @@ modules:
           ~real64: sp
       molpro:
         template: modules/group_restricted.lua
+      petsc:
+        suffixes:
+          +complex: complex
       plumed:
         environment:
           set:

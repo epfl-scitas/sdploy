@@ -288,6 +288,8 @@ serial_packages_gcc_stable:
     - eigen:
         default: { variants: +ipo }
     - ffmpeg +libx264
+    - gettext:
+        default: { variants: ~libxml2 }
     - glpk+gmp
     - hdf5:
         default:
@@ -1187,10 +1189,27 @@ mpi_blas_python_packages_petsc_gcc_stable:
           gpu:
             nvidia: [suite-sparse +cuda]
             none: []
+    - petsc:
+        variants: +complex +mumps
+        dependencies:
+          common:
+            - hdf5 +ipo +mpi
+          gpu:
+            nvidia: [suite-sparse +cuda]
+            none: []
     - slepc:
         default: { variants: +arpack }
         dependencies:
           common:
+            - petsc ~complex
+            - hdf5 +ipo +mpi
+          gpu:
+            nvidia: [petsc +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
+            none: []
+    - slepc:
+        dependencies:
+          common:
+            - petsc +complex +mumps
             - hdf5 +ipo +mpi
           gpu:
             nvidia: [petsc +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
@@ -1198,6 +1217,15 @@ mpi_blas_python_packages_petsc_gcc_stable:
     - py-petsc4py:
         dependencies:
           common:
+            - petsc ~complex
+            - hdf5 +ipo +mpi
+          gpu:
+            nvidia: [petsc +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
+            none: []
+    - py-petsc4py:
+        dependencies:
+          common:
+            - petsc +complex +mumps
             - hdf5 +ipo +mpi
           gpu:
             nvidia: [petsc +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
