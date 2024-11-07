@@ -169,6 +169,7 @@ modules:
           set:
             I_MPI_PMI_LIBRARY: /usr/lib64/libpmi2.so
             I_MPI_EXTRA_FILESYSTEM: '0'
+            FI_PROVIDER: verbs
             SLURM_MPI_TYPE: pmi2
       julia:
         autoload: direct
