@@ -1186,11 +1186,10 @@ mpi_blas_python_packages_petsc_gcc_stable:
     - py-petsc4py:
         dependencies:
           common:
-            - petsc +complex +mumps
             - hdf5 +ipo +mpi
           gpu:
-            nvidia: [petsc +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
-            none: []
+            nvidia: [petsc +complex +mumps +cuda cuda_arch=<cuda_arch>, suite-sparse +cuda]
+            none: [petsc +complex +mumps]
 
 mpi_blas_python_packages_no_gpu_gcc_stable:
   metadata: { section: packages }
